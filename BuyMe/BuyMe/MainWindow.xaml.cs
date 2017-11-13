@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BuyMe.DataAccess;
+using BuyMe.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,18 @@ namespace BuyMe
         public MainWindow()
         {
             InitializeComponent();
+            using (var db = new ShoppingListDbContext())
+            {
+                db.Categories.Add(new Category
+                {
+                    Name = "Drinks"
+                });
+                db.Categories.Add(new Category
+                {
+                    Name = "Food"
+                });
+                db.SaveChanges();
+            }
         }
     }
 }
