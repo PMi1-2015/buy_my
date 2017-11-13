@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201711132157089_InitialCreate.cs" />
+    <Compile Include="Migrations\201711132157089_InitialCreate.Designer.cs">
+      <DependentUpon>201711132157089_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ShoppingListDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +64,11 @@
       <Project>{8624db84-57ea-4c7b-9144-555abcfbf02d}</Project>
       <Name>BuyMe.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711132157089_InitialCreate.resx">
+      <DependentUpon>201711132157089_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
