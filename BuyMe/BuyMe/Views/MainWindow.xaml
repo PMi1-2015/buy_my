@@ -19,14 +19,17 @@
             <Border Style="{StaticResource OuterBorder}">
                 <StackPanel>
                     <Label Content="Your shopping lists" HorizontalAlignment="Center" Margin="0 0 0 20" VerticalAlignment="Top"/>
-                    <ListView Name="Lists" Width="Auto">
+                    <ListView Name="Lists" Width="Auto" MinHeight="230" ItemsSource="{Binding ShoppingLists}"
+                              SelectedItem="{Binding SelectedList}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ListName}" 
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ListName}"
                                                 Width="Auto"></GridViewColumn>
-                                <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" 
+                                <GridViewColumn Header="Date of creation" 
+                                                DisplayMemberBinding="{Binding CreationTime, StringFormat='dd-mm-yyyy'}" 
                                                 Width="Auto"></GridViewColumn>
-                                <GridViewColumn Header="Reminder" DisplayMemberBinding="{Binding Reminder}" 
+                                <GridViewColumn Header="Reminder" 
+                                                DisplayMemberBinding="{Binding ReminderTime, StringFormat='dd-mm-yyyy hh:mm:ss'}" 
                                                 Width="Auto"></GridViewColumn>
                             </GridView>
                         </ListView.View>
@@ -34,10 +37,14 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="0" DataContext="SelectedList">
+        <StackPanel Name="SelectedListView" Grid.Column="1" Grid.Row="0" DataContext="SelectedList">
             <TextBlock Text="{Binding ListName}"></TextBlock>
-            <Image Source="{Binding ListImage}" ></Image>
-            <TextBlock Name="SelectedListProducts"></TextBlock>
+            <TextBlock Text="{Binding CreationTime}"></TextBlock>
+            <TextBlock Text="{Binding ReminderTime}"></TextBlock>
+            <!--<Image Source="{Binding ListImage}" ></Image>-->
+            <ListBox Name="ListOfProducts" ItemsSource="{Binding Products}">
+                
+            </ListBox>
         </StackPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <DockPanel Dock="Left" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">

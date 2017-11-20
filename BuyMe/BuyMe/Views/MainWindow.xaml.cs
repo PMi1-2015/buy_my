@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using BuyMe.ViewModels;
 using BuyMe.DataAccess;
@@ -14,18 +16,9 @@ namespace BuyMe.Views
         public MainWindow()
         {
             InitializeComponent();
-            //using(ShoppingListDbContext db = new ShoppingListDbContext())
-            //{
-            //    db.Categories.Add(new Category
-            //    {
-            //        Name = "Meal"
-            //    });
-            //    db.Categories.Add(new Category
-            //    {
-            //        Name = "Music"
-            //    });
-            //}
-            //DataContext = new SelectListsViewModel();
+
+            //var viewModel = new SelectListsViewModel();
+            DataContext = new SelectListsViewModel();
         }
     }
 }
