@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BuyMe
+namespace BuyMe.Views
 {
-    public partial class CreateListWindow : Window
+    public partial class BasketWindow : Window
     {
-        public CreateListWindow()
+        public BasketWindow()
         {
             InitializeComponent();
         }

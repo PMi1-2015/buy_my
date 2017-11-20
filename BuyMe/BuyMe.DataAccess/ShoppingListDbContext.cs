@@ -6,7 +6,7 @@ namespace BuyMe.DataAccess
     public partial class ShoppingListDbContext : DbContext
     {
         public ShoppingListDbContext()
-            : base("name=ShoppingList")
+            : base("ShoppingList")
         {
         }
 

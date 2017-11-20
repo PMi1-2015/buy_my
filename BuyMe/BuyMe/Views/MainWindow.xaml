@@ -1,0 +1,50 @@
+﻿<Window x:Class="BuyMe.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BuyMe"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="Column1" Width="*"></ColumnDefinition>
+            <ColumnDefinition Name="Column2" Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <Border Style="{StaticResource OuterBorder}">
+                <StackPanel>
+                    <Label Content="Your shopping lists" HorizontalAlignment="Center" Margin="0 0 0 20" VerticalAlignment="Top"/>
+                    <ListView Name="Lists" Width="Auto">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ListName}" 
+                                                Width="Auto"></GridViewColumn>
+                                <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" 
+                                                Width="Auto"></GridViewColumn>
+                                <GridViewColumn Header="Reminder" DisplayMemberBinding="{Binding Reminder}" 
+                                                Width="Auto"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" DataContext="SelectedList">
+            <TextBlock Text="{Binding ListName}"></TextBlock>
+            <Image Source="{Binding ListImage}" ></Image>
+            <TextBlock Name="SelectedListProducts"></TextBlock>
+        </StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <DockPanel Dock="Left" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
+                <Button Content="+ Create New +" Margin="20 2 2 2" HorizontalAlignment="Left"/>
+                <Button Content="X Delete" Margin="2 2 20 2" HorizontalAlignment="Right"/>
+            </DockPanel>
+            <Button Content="Next ->" Margin="2" HorizontalAlignment="Right"/>
+        </DockPanel>
+    </Grid>
+</Window>
