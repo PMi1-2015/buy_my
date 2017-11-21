@@ -30,8 +30,11 @@ namespace BuyMe.ViewModels
         {
             var db = new ShoppingListDbContext();
             db.ShoppingLists.Load();
+            
             ShoppingLists = db.ShoppingLists.Local;
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

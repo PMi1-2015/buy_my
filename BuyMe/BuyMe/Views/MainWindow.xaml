@@ -18,7 +18,8 @@
         <StackPanel Grid.Column="0" Grid.Row="0">
             <Border Style="{StaticResource OuterBorder}">
                 <StackPanel>
-                    <Label Content="Your shopping lists" HorizontalAlignment="Center" Margin="0 0 0 20" VerticalAlignment="Top"/>
+                    <Label Content="Your shopping lists" HorizontalAlignment="Center" Margin="0 0 0 20" VerticalAlignment="Top"
+                           FontSize="16"/>
                     <ListView Name="Lists" Width="Auto" MinHeight="230" ItemsSource="{Binding ShoppingLists}"
                               SelectedItem="{Binding SelectedList}">
                         <ListView.View>
@@ -37,18 +38,31 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-        <StackPanel Name="SelectedListView" Grid.Column="1" Grid.Row="0" DataContext="SelectedList">
-            <TextBlock Text="{Binding ListName}"></TextBlock>
-            <TextBlock Text="{Binding CreationTime}"></TextBlock>
-            <TextBlock Text="{Binding ReminderTime}"></TextBlock>
-            <!--<Image Source="{Binding ListImage}" ></Image>-->
-            <ListBox Name="ListOfProducts" ItemsSource="{Binding Products}">
-                
-            </ListBox>
+        <StackPanel Name="SelectedListView" Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedList}">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="{Binding ListName}" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding CreationTime, StringFormat=Time of creation: {0}}" Margin="5"></TextBlock>
+            <TextBlock Text="{Binding ReminderTime, StringFormat=Reminder time: {0}}" Margin="5"></TextBlock>
+            <Image Source="{Binding ImagePath}" Stretch="Fill"></Image>
+            <TextBlock Text="Products" FontSize="16" HorizontalAlignment="Center" Margin="2"></TextBlock>
+            <ListView Name="ListOfProducts" ItemsSource="{Binding Products}" Width="Auto" MinHeight="180">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" 
+                                        DisplayMemberBinding="{Binding Name}"
+                                        Width="auto"></GridViewColumn>
+                        <GridViewColumn Header="Category" 
+                                        DisplayMemberBinding="{Binding Path=Category.Name}"
+                                        Width="auto"></GridViewColumn>
+                        <GridViewColumn Header="Price" 
+                                        DisplayMemberBinding="{Binding Price, StringFormat={}{0:C}}"
+                                        Width="auto"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </StackPanel>
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <DockPanel Dock="Left" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
-                <Button Content="+ Create New +" Margin="20 2 2 2" HorizontalAlignment="Left"/>
+            <DockPanel Dock="Left">
+                <Button Content="+ Create " Margin="20 2 2 2" HorizontalAlignment="Left"/>
                 <Button Content="X Delete" Margin="2 2 20 2" HorizontalAlignment="Right"/>
             </DockPanel>
             <Button Content="Next ->" Margin="2" HorizontalAlignment="Right"/>
