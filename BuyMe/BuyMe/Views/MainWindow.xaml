@@ -60,12 +60,11 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
-        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <DockPanel Dock="Left">
-                <Button Content="+ Create " Margin="20 2 2 2" HorizontalAlignment="Left"/>
-                <Button Content="X Delete" Margin="2 2 20 2" HorizontalAlignment="Right"/>
-            </DockPanel>
-            <Button Content="Next ->" Margin="2" HorizontalAlignment="Right"/>
-        </DockPanel>
+        <Button Grid.Column="0" Grid.Row="1" Command="{Binding CreateNewListCommand}" Content="Create" Margin="30 2 2 2" 
+                        HorizontalAlignment="Left"/>
+            <Button Grid.Column="0" Grid.Row="1" Command="{Binding DeleteListCommand}" CommandParameter="{Binding SelectedList}" 
+                        Content="Delete" Margin="2 2 30 2" HorizontalAlignment="Right"/>
+            <Button Grid.Column="1" Grid.Row="1" Command="{Binding EditListCommand}" CommandParameter="{Binding SelectedList}"
+                    Content="Edit selected list" Margin="2" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

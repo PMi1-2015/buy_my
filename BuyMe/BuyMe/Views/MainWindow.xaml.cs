@@ -17,8 +17,7 @@ namespace BuyMe.Views
         {
             InitializeComponent();
 
-            //var viewModel = new SelectListsViewModel();
-            DataContext = new SelectListsViewModel();
+            DataContext = new SelectListsViewModel(this);
         }
     }
 }
