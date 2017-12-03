@@ -5,13 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="BasketWindow" Height="300" Width="300">
+        Title="BasketWindow" Height="330" Width="300">
+    <Window.Resources>
+        <DataTemplate x:Key="BuyT">
+            <CheckBox Name="BuyCheck" Height="10" Width="10"></CheckBox>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <Label Content="Basket:" HorizontalAlignment="Left" Margin="115,15,0,0" VerticalAlignment="Top"/>
-        <ListBox  HorizontalAlignment="Left" Height="153" Margin="10,52,0,0" VerticalAlignment="Top" Width="272"/>
-        <Button Content="Buy!" HorizontalAlignment="Left" Margin="10,233,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Select All!" HorizontalAlignment="Left" Margin="207,233,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Basket:" HorizontalAlignment="Left" Margin="124,7,0,0" VerticalAlignment="Top"/>
+        <Button Content="Clear selected" HorizontalAlignment="Left" Margin="196,259,0,0" VerticalAlignment="Top" Width="86" Height="30"/>
+        <Button Content="Select All!" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Back to lists" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
+        <Button Content="Buy more!" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Width="101" Height="30"/>
+        <ListView HorizontalAlignment="Left" Height="164" Margin="10,41,0,0" VerticalAlignment="Top" Width="272">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="80"/>
+                    <GridViewColumn Header="Amount" Width="50"/>
+                    <GridViewColumn Header="Total cost" Width="80"/>
+                    <GridViewColumn Header="Check" Width="62"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Total basket cost:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total selected cost:" HorizontalAlignment="Left" Margin="172,210,0,0" VerticalAlignment="Top"/>
+        <Label Content="400" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top"/>
+        <Label Content="250" HorizontalAlignment="Left" Margin="172,228,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

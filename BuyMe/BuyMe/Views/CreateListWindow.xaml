@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="Window1" Height="300" Width="300">
+        Title="Create List" Height="300" Width="300">
     <Grid>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Create list:" HorizontalAlignment="Left" Margin="114,19,0,0" VerticalAlignment="Top"/>
+        <Button Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="6,239,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Create/edit list:" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Top"/>
         <Label Content="Enter name: " HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
-        <Label Content="Add reminder(optional):" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
+        <Label Content="Add reminder" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="CheckBox" Height="20" Width="20" IsChecked="False" Margin="99,184,174.6,66.4" RenderTransformOrigin="0.43,0.465"></CheckBox>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,146,0,0" TextWrapping="Wrap" Text="DefaultName" VerticalAlignment="Top" Width="272"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Width="272"/>
-        <Image HorizontalAlignment="Left" Height="50" Margin="232,84,0,0" VerticalAlignment="Top" Width="50"/>
+        <DatePicker Name="DatePicker" HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" VerticalAlignment="Top" Width="272"/>
+        <Image HorizontalAlignment="Left" Height="69" Margin="99,41,0,0" VerticalAlignment="Top" Width="69"/>
         <Label Content="Add Image:" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
-        <Button Content="Create!" HorizontalAlignment="Left" Margin="207,239,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="207,239,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

@@ -19,19 +19,19 @@ namespace BuyMe.ViewModels
     class SelectListsViewModel : Window, INotifyPropertyChanged
     {
         private ShoppingListDbContext db;
-        private Window _currentWindow;
-        private ShoppingList _selectedList;
+        private Window currentWindow;
+        private ShoppingList selectedList;
         public ObservableCollection<ShoppingList> ShoppingLists { get; set; }
 
-        private CustomCommand _createNewListCommand;
-        public CustomCommand CreateNewListCommand => _createNewListCommand ?? (_createNewListCommand = new CustomCommand(obj =>
+        private CustomCommand createNewListCommand;
+        public CustomCommand CreateNewListCommand => createNewListCommand ?? (createNewListCommand = new CustomCommand(obj =>
         {
-            var createListWindow = new CreateListWindow {Owner = _currentWindow};
+            var createListWindow = new CreateListWindow {Owner = currentWindow};
             createListWindow.ShowDialog();
         }));
 
-        private CustomCommand _deleteListCommand;
-        public CustomCommand DeleteListCommand => _deleteListCommand ?? (_deleteListCommand = new CustomCommand(obj =>
+        private CustomCommand deleteListCommand;
+        public CustomCommand DeleteListCommand => deleteListCommand ?? (deleteListCommand = new CustomCommand(obj =>
         {
             if (!(obj is ShoppingList toDeleteShoppingList)) return;
 
@@ -45,22 +45,22 @@ namespace BuyMe.ViewModels
             db.SaveChanges();
         }, obj => ShoppingLists.Count > 0));
 
-        private CustomCommand _editListCommand;
+        private CustomCommand editListCommand;
 
-        public CustomCommand EditListCommand => _editListCommand ?? (_editListCommand = new CustomCommand(obj =>
+        public CustomCommand EditListCommand => editListCommand ?? (editListCommand = new CustomCommand(obj =>
         {
             if (!(obj is ShoppingList toEditList)) return;
 
-            var editListWindow = new CategoryProductsWindow() {Owner = _currentWindow};
+            var editListWindow = new CategoryProductsWindow() {Owner = currentWindow};
             editListWindow.ShowDialog();
         }));
 
         public ShoppingList SelectedList
         {
-            get => _selectedList;
+            get => selectedList;
             set
             {
-                _selectedList = value;
+                selectedList = value;
                 OnPropertyChanged("SelectedList");
             }
         }
@@ -68,7 +68,7 @@ namespace BuyMe.ViewModels
         public SelectListsViewModel(Window currentWindow)
         {
             db = new ShoppingListDbContext();
-            _currentWindow = currentWindow;
+            this.currentWindow = currentWindow;
 
             db.ShoppingLists.Load();
             

@@ -5,66 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Views.MainWindow" Height="350" Width="573.204">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Name="Column1" Width="*"></ColumnDefinition>
-            <ColumnDefinition Name="Column2" Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0">
-            <Border Style="{StaticResource OuterBorder}">
-                <StackPanel>
-                    <Label Content="Your shopping lists" HorizontalAlignment="Center" Margin="0 0 0 20" VerticalAlignment="Top"
-                           FontSize="16"/>
-                    <ListView Name="Lists" Width="Auto" MinHeight="230" ItemsSource="{Binding ShoppingLists}"
-                              SelectedItem="{Binding SelectedList}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ListName}"
-                                                Width="Auto"></GridViewColumn>
-                                <GridViewColumn Header="Date of creation" 
-                                                DisplayMemberBinding="{Binding CreationTime, StringFormat='dd-mm-yyyy'}" 
-                                                Width="Auto"></GridViewColumn>
-                                <GridViewColumn Header="Reminder" 
-                                                DisplayMemberBinding="{Binding ReminderTime, StringFormat='dd-mm-yyyy hh:mm:ss'}" 
-                                                Width="Auto"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-        <StackPanel Name="SelectedListView" Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedList}">
-            <TextBlock FontWeight="Bold" FontSize="20" Text="{Binding ListName}" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Text="{Binding CreationTime, StringFormat=Time of creation: {0}}" Margin="5"></TextBlock>
-            <TextBlock Text="{Binding ReminderTime, StringFormat=Reminder time: {0}}" Margin="5"></TextBlock>
-            <Image Source="{Binding ImagePath}" Stretch="Fill"></Image>
-            <TextBlock Text="Products" FontSize="16" HorizontalAlignment="Center" Margin="2"></TextBlock>
-            <ListView Name="ListOfProducts" ItemsSource="{Binding Products}" Width="Auto" MinHeight="180">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" 
-                                        DisplayMemberBinding="{Binding Name}"
-                                        Width="auto"></GridViewColumn>
-                        <GridViewColumn Header="Category" 
-                                        DisplayMemberBinding="{Binding Path=Category.Name}"
-                                        Width="auto"></GridViewColumn>
-                        <GridViewColumn Header="Price" 
-                                        DisplayMemberBinding="{Binding Price, StringFormat={}{0:C}}"
-                                        Width="auto"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
-        <Button Grid.Column="0" Grid.Row="1" Command="{Binding CreateNewListCommand}" Content="Create" Margin="30 2 2 2" 
-                        HorizontalAlignment="Left"/>
-            <Button Grid.Column="0" Grid.Row="1" Command="{Binding DeleteListCommand}" CommandParameter="{Binding SelectedList}" 
-                        Content="Delete" Margin="2 2 30 2" HorizontalAlignment="Right"/>
-            <Button Grid.Column="1" Grid.Row="1" Command="{Binding EditListCommand}" CommandParameter="{Binding SelectedList}"
-                    Content="Edit selected list" Margin="2" HorizontalAlignment="Center"/>
+        <Label Content="Your shopping lists:" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top" Height="28" Width="137"/>
+        <ListView Name="Lists" HorizontalAlignment="Left" Height="185" Margin="27,52,0,0" VerticalAlignment="Top" Width="150" 
+                  ItemsSource="{Binding ShoppingLists}" SelectedItem="{Binding SelectedList}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Edit" Command="{Binding EditListCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
+                    <MenuItem Header="Delete" Command="{Binding DeleteListCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ListName}" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="+ Create New +" Command="{Binding CreateNewListCommand}" HorizontalAlignment="Left" Margin="27,242,0,0" VerticalAlignment="Top" Width="150" Height="41"/>
+        <Label Content="List details:" HorizontalAlignment="Left" Margin="224,21,0,0" VerticalAlignment="Top" Width="95"/>
+        <Image Source="{Binding SelectedList.ImagePath}" Stretch="Uniform" HorizontalAlignment="Left" Height="100" Margin="219,52,0,0" VerticalAlignment="Top" 
+               Width="100"/>
+        <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,166,0,0"/>
+        <Label Content="Last edit:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,188,0,0"/>
+        <Label Content="Reminder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,213,0,0"/>
+        <ListView x:Name="ProductsOverview" HorizontalAlignment="Left" Height="185" Margin="357,52,0,0" VerticalAlignment="Top" Width="200"
+                  ItemsSource="{Binding SelectedList.Products}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="50"/>
+                    <GridViewColumn Header="Price/Stock" DisplayMemberBinding="{Binding Path=Price, StringFormat={}{0:C}}" Width="70"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="{Binding SelectedList.ListName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,166,0,0" Width="108"/>
+        <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="108"/>
+
+        <Label Content="List overview:" HorizontalAlignment="Left" Margin="357,19,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBlock HorizontalAlignment="Left" Margin="182,239,0,0" TextWrapping="Wrap" 
+                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" VerticalAlignment="Top" Height="44" Width="170"/>
+        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="357,242,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Path=SelectedList.TotalPrice, StringFormat={}{0:C}}" HorizontalAlignment="Left" Margin="455,242,0,0" 
+               VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </Window>
+

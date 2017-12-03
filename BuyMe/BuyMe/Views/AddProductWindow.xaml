@@ -5,16 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="AddProductWindow" Height="300" Width="300">
-    <Grid>
-        <Label Content="Add Product:" HorizontalAlignment="Left" Margin="111,25,0,0" VerticalAlignment="Top"/>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="75"/>
-        <ComboBox HorizontalAlignment="Left" Margin="18,151,0,0" VerticalAlignment="Top" Width="120"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="173,133,0,0" VerticalAlignment="Top" Width="100"></Image>
-        <Label Content="Enter name:" HorizontalAlignment="Left" Margin="18,71,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="111,71,0,0" TextWrapping="Wrap" Text="name..." VerticalAlignment="Top" Width="120"/>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="246,74,0,0" VerticalAlignment="Top" Width="36"/>
-        <Label Content="OR:" HorizontalAlignment="Left" Margin="18,115,0,0" VerticalAlignment="Top"/>
+        Title="AddProductWindow" Height="360" Width="300">
+    <Grid Margin="0,0,0,3">
+        <Label Content="Add/Edit Product:" HorizontalAlignment="Left" Margin="111,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,296,0,0" VerticalAlignment="Top" Width="75"/>
+        <Image HorizontalAlignment="Left" Height="80" Margin="101,36,0,0" VerticalAlignment="Top" Width="80"></Image>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="101,130,0,0" TextWrapping="Wrap" Text="name..." VerticalAlignment="Top" Width="181"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="207,296,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Image:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="71"/>
+        <Label Content="Weight:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="101,158,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="114"/>
+        <Label Content="Price:" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="101,186,0,0" TextWrapping="Wrap" Text="12.5" VerticalAlignment="Top" Width="114"/>
+        <Label Content="Description::" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox HorizontalAlignment="Left" Height="74" Margin="101,217,0,0" TextWrapping="Wrap" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna" VerticalAlignment="Top" Width="181" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 </Window>
