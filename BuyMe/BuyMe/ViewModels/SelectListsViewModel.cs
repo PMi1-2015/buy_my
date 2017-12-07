@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using BuyMe.DataAccess;
@@ -28,6 +23,8 @@ namespace BuyMe.ViewModels
         {
             var createListWindow = new CreateListWindow {Owner = currentWindow};
             createListWindow.ShowDialog();
+            db.ShoppingLists.Load();
+            ShoppingLists = db.ShoppingLists.Local;
         }));
 
         private CustomCommand deleteListCommand;
@@ -51,7 +48,7 @@ namespace BuyMe.ViewModels
         {
             if (!(obj is ShoppingList toEditList)) return;
 
-            var editListWindow = new CategoryProductsWindow() {Owner = currentWindow};
+            var editListWindow = new BasketWindow(SelectedList) {Owner = currentWindow};
             editListWindow.ShowDialog();
         }));
 

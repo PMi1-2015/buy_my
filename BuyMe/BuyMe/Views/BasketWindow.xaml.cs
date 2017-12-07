@@ -11,14 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BuyMe.Models;
+using BuyMe.ViewModels;
 
 namespace BuyMe.Views
 {
     public partial class BasketWindow : Window
     {
-        public BasketWindow()
+        public BasketWindow(ShoppingList shoppingList)
         {
             InitializeComponent();
+            DataContext = new BasketViewModel(this, shoppingList);
         }
     }
 }

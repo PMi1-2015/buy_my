@@ -11,10 +11,5 @@ namespace BuyMe.Views
             InitializeComponent();
             DataContext = new CreateListViewModel(this);
         }
-
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
-        {
-            DatePicker.Visibility = DatePicker.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
-        }
     }
 }

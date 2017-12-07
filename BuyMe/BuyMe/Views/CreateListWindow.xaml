@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
         Title="Create List" Height="300" Width="300">
@@ -11,11 +13,24 @@
         <Label Content="Create/edit list:" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Top"/>
         <Label Content="Enter name: " HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Add reminder" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="CheckBox" Height="20" Width="20" IsChecked="False" Margin="99,184,174.6,66.4" RenderTransformOrigin="0.43,0.465"></CheckBox>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,146,0,0" TextWrapping="Wrap" Text="DefaultName" VerticalAlignment="Top" Width="272"/>
-        <DatePicker Name="DatePicker" HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" VerticalAlignment="Top" Width="272"/>
-        <Image HorizontalAlignment="Left" Height="69" Margin="99,41,0,0" VerticalAlignment="Top" Width="69"/>
+        <CheckBox Name="CheckBox" Height="20" Width="20" IsChecked="{Binding IsCheckBoxOn}" Margin="99,184,174.6,66.4" 
+                  RenderTransformOrigin="0.4,0.46" Command="{Binding ToggleDatePickerCommand}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Checked">
+                    <i:InvokeCommandAction Command="{Binding ToggleDatePickerCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Unchecked">
+                    <i:InvokeCommandAction Command="{Binding ToggleDatePickerCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </CheckBox>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                 Width="272" Text="{Binding ListName}"/>
+        <xceed:DateTimePicker Name="DatePicker" HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" VerticalAlignment="Top" Width="272"
+                    Visibility="{Binding DatePickerVisibility}" Text="{Binding ReminderTime}"/>
+        <Image HorizontalAlignment="Left" Height="69" Margin="194,41,0,0" VerticalAlignment="Top" Width="69"/>
         <Label Content="Add Image:" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="207,239,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Submit" Command="{Binding SubmitCommand}" HorizontalAlignment="Left" Margin="207,239,0,0" 
+                VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
