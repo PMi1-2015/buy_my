@@ -48,7 +48,7 @@ namespace BuyMe.ViewModels
         {
             if (!(obj is ShoppingList toEditList)) return;
 
-            var editListWindow = new BasketWindow(SelectedList) {Owner = currentWindow};
+            var editListWindow = new BasketWindow(SelectedList.Id) {Owner = currentWindow};
             editListWindow.ShowDialog();
         }));
 

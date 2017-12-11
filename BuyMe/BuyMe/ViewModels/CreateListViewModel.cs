@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Windows;
 using BuyMe.DataAccess;
 using BuyMe.Models;
 using BuyMe.Views;
+using Microsoft.Win32;
 
 namespace BuyMe.ViewModels
 {
@@ -74,14 +76,12 @@ namespace BuyMe.ViewModels
         }
 
         private CustomCommand backCommand;
-
         public CustomCommand BackCommand => backCommand ?? (backCommand = new CustomCommand(obj =>
         {
             currentWindow.DialogResult = true;
         }));
 
         private CustomCommand toggleDatePickerCommand;
-
         public CustomCommand ToggleDatePickerCommand =>
             toggleDatePickerCommand ?? (toggleDatePickerCommand = new CustomCommand(
                 obj =>
@@ -92,6 +92,9 @@ namespace BuyMe.ViewModels
         private CustomCommand submitCommand;
         public CustomCommand SubmitCommand => submitCommand ?? (submitCommand = new CustomCommand(obj =>
         {
+            GetUniqName();
+            SetDefaultPictureWhenItsNotSetted();
+
             db.ShoppingLists.Add(new ShoppingList
             {
                 ListName = ListName,
@@ -107,8 +110,46 @@ namespace BuyMe.ViewModels
 
         public CustomCommand AddImageCommand => addImageCommand ?? (addImageCommand = new CustomCommand(obj =>
         {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                DefaultExt = ".jpg",
+                Filter =
+                    "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+            };
 
+            bool? dialogResult = dialog.ShowDialog();
+            if (dialogResult == true)
+            {
+                ImagePath = dialog.FileName;
+            }
         }));
+
+        private void GetUniqName()
+        {
+            db.ShoppingLists.Load();
+            int index = 0;
+            while (true)
+            {
+
+                if (db.ShoppingLists.Local.All(list => list.ListName != ListName))
+                {
+                    break;
+                }
+                if (index != 0)
+                {
+                    ListName = ListName.Substring(0, ListName.Length - 1);
+                }              
+                ListName += index++;
+            }
+        }
+
+        private void SetDefaultPictureWhenItsNotSetted()
+        {
+            if (ImagePath == "../Images/plus.png")
+            {
+                ImagePath = "../Images/default.jpg";
+            }
+        }
 
         public CreateListViewModel(Window window)
         {
@@ -117,6 +158,7 @@ namespace BuyMe.ViewModels
             IsCheckBoxOn = false;
             DatePickerVisibility = "Hidden";
             ListName = "DefaultName";
+            ImagePath = "../Images/plus.png";
             ReminderTime = DateTime.Now;
         }
 

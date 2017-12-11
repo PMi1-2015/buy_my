@@ -28,7 +28,13 @@
                  Width="272" Text="{Binding ListName}"/>
         <xceed:DateTimePicker Name="DatePicker" HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" VerticalAlignment="Top" Width="272"
                     Visibility="{Binding DatePickerVisibility}" Text="{Binding ReminderTime}"/>
-        <Image HorizontalAlignment="Left" Height="69" Margin="194,41,0,0" VerticalAlignment="Top" Width="69"/>
+        <Image HorizontalAlignment="Left" Height="69" Margin="194,41,0,0" VerticalAlignment="Top" Width="69" Source="{Binding ImagePath}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDown">
+                    <i:InvokeCommandAction Command="{Binding AddImageCommand}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Image>
         <Label Content="Add Image:" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
         <Button Content="Submit" Command="{Binding SubmitCommand}" HorizontalAlignment="Left" Margin="207,239,0,0" 
                 VerticalAlignment="Top" Width="75"/>

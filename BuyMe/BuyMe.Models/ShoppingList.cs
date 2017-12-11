@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BuyMe.Models
         public DateTime ReminderTime { get; set; }
         [DefaultValue("Images/default.jpg")]
         public string ImagePath { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ObservableCollection<Product> Products { get; set; }
 
         [NotMapped]
         public double TotalPrice => Products.Sum(product => product.Price * product.Amount);

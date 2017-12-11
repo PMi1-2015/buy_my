@@ -13,18 +13,18 @@
     </Window.Resources>
     <Grid>
         <Label Content="Basket:" HorizontalAlignment="Left" Margin="124,7,0,0" VerticalAlignment="Top"/>
-        <Button Content="Clear selected" HorizontalAlignment="Left" Margin="196,259,0,0" VerticalAlignment="Top" Width="86" Height="30"/>
-        <Button Content="Select All!" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Back to lists" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
-        <Button Content="Buy more!" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Width="101" Height="30"/>
-        <ListView HorizontalAlignment="Left" Height="164" Margin="10,41,0,0" VerticalAlignment="Top" Width="272" 
+        <Button Command="{Binding ClearSelectedCommand}" CommandParameter="{Binding ElementName=BasketList, Path=SelectedItems}" 
+                Content="Clear selected" HorizontalAlignment="Left" Margin="196,259,0,0" VerticalAlignment="Top" Width="86" Height="30"/>
+        <Button Command="{Binding SelectAllCommand}"  Content="Select All!" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding BackCommand}" Content="Back to lists" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
+        <Button Command="{Binding BuyMoreCommand}" Content="Buy more!" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Width="101" Height="30"/>
+        <ListView Name="BasketList" HorizontalAlignment="Left" Height="164" Margin="10,41,0,0" VerticalAlignment="Top" Width="272" 
                   ItemsSource="{Binding SelectedShoppingList.Products}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
                     <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="50"/>
                     <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="80"/>
-                    <GridViewColumn Header="Check" Width="62"/>
                 </GridView>
             </ListView.View>
         </ListView>

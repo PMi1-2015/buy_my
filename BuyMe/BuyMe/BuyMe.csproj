@@ -173,7 +173,9 @@
       <Name>BuyMe.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\plus.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\default.jpg" />
   </ItemGroup>

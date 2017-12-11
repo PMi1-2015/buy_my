@@ -1,14 +1,13 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using BuyMe.DataAccess;
 using BuyMe.Models;
+using BuyMe.Views;
 
 namespace BuyMe.ViewModels
 {
@@ -16,12 +15,12 @@ namespace BuyMe.ViewModels
     {
         private ShoppingListDbContext db;
         private Window currentWindow;
-        private ObservableCollection<Product> selectedProducts;
+        private ICollection<Product> selectedProducts;
        
-        public ShoppingList SelectedShoppingList;
-        public double SelectedProductsTotalPrice => selectedProducts.Sum(product => product.Price);
+        public ShoppingList SelectedShoppingList { get; set; }
+        public double SelectedProductsTotalPrice => selectedProducts?.Sum(product => product.Price) ?? 0;
 
-        public ObservableCollection<Product> SelectedProducts
+        public ICollection<Product> SelectedProducts
         {
             get => selectedProducts;
             set
@@ -34,21 +33,21 @@ namespace BuyMe.ViewModels
         private CustomCommand selectAllCommand;
         public CustomCommand SelectAllCommand => selectAllCommand ?? (selectAllCommand = new CustomCommand(obj =>
         {
-            selectedProducts = SelectedShoppingList.Products as ObservableCollection<Product>;
+            selectedProducts = SelectedShoppingList.Products;
         }));
 
         private CustomCommand clearSelectedCommand;
         public CustomCommand ClearSelectedCommand => clearSelectedCommand ?? (clearSelectedCommand = new CustomCommand(obj =>
 
         {
-            if (obj is IEnumerable<Product> selected)
+            var selected = (IList)obj;
+            ObservableCollection<Product> selectedCollection = new ObservableCollection<Product>(selected.Cast<Product>());
+
+            foreach (Product product in selectedCollection)
             {
-                foreach (Product product in selected)
-                {
-                    SelectedShoppingList.Products.Remove(product);
-                }
-                db.SaveChanges();
+                SelectedShoppingList.Products.Remove(product);
             }
+            db.SaveChanges();
         }));
 
         private CustomCommand backCommand;
@@ -60,13 +59,14 @@ namespace BuyMe.ViewModels
         private CustomCommand buyMoreCommand;
         public CustomCommand BuyMoreCommand => buyMoreCommand ?? (buyMoreCommand = new CustomCommand(obj =>
         {
-
+            var categoryProductWindow = new CategoryProductsWindow();
+            categoryProductWindow.ShowDialog();
         }));
 
-        public BasketViewModel(Window currentWindow, ShoppingList shoppingList)
+        public BasketViewModel(Window currentWindow, int shoppingListId)
         {
             db = new ShoppingListDbContext();
-            SelectedShoppingList = shoppingList;
+            SelectedShoppingList = db.ShoppingLists.First(list => list.Id == shoppingListId);
             this.currentWindow = currentWindow;
         }
 

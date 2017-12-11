@@ -20,7 +20,7 @@ namespace BuyMe.Views
         public AddProductWindow()
         {
             InitializeComponent();
-            DataContext = new AddProductViewModel();
+            //DataContext = new AddProductViewModel();
         }
     }
 }

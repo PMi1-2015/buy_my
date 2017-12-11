@@ -18,10 +18,10 @@ namespace BuyMe.Views
 {
     public partial class BasketWindow : Window
     {
-        public BasketWindow(ShoppingList shoppingList)
+        public BasketWindow(int shoppingListId)
         {
             InitializeComponent();
-            DataContext = new BasketViewModel(this, shoppingList);
+            DataContext = new BasketViewModel(this, shoppingListId);
         }
     }
 }
