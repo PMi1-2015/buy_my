@@ -16,8 +16,8 @@ namespace BuyMe.ViewModels
 {
     class CreateListViewModel : INotifyPropertyChanged
     {
-        private Window currentWindow;
-        private ShoppingListDbContext db;
+        private readonly Window currentWindow;
+        private readonly ShoppingListDbContext db;
 
         private string name;
         private string imagePath;
@@ -107,7 +107,6 @@ namespace BuyMe.ViewModels
         }));
 
         private CustomCommand addImageCommand;
-
         public CustomCommand AddImageCommand => addImageCommand ?? (addImageCommand = new CustomCommand(obj =>
         {
             OpenFileDialog dialog = new OpenFileDialog

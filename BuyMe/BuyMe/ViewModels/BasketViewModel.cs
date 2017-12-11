@@ -13,8 +13,8 @@ namespace BuyMe.ViewModels
 {
     class BasketViewModel : INotifyPropertyChanged
     {
-        private ShoppingListDbContext db;
-        private Window currentWindow;
+        private readonly ShoppingListDbContext db;
+        private readonly Window currentWindow;
         private ICollection<Product> selectedProducts;
        
         public ShoppingList SelectedShoppingList { get; set; }

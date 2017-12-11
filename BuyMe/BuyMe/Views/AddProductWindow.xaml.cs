@@ -11,16 +11,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BuyMe.Models;
 using BuyMe.ViewModels;
 
 namespace BuyMe.Views
 {
     public partial class AddProductWindow : Window
     {
-        public AddProductWindow()
+        public AddProductWindow(Category category)
         {
             InitializeComponent();
-            //DataContext = new AddProductViewModel();
+            DataContext = new AddProductViewModel(this, category);
+        }
+
+        public AddProductWindow(Category category, Product productToEdit)
+        {
+            InitializeComponent();
+            DataContext = new AddProductViewModel(this, category);
         }
     }
 }
