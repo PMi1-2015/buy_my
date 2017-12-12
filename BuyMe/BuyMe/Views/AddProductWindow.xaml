@@ -22,8 +22,6 @@
                  VerticalAlignment="Top" Width="181"/>
         <Button Command="{Binding SubmitCommand}" Content="Submit" HorizontalAlignment="Left" Margin="207,296,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="Image:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="71"/>
-        <Label Content="Weight:" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="71"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="101,158,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="114"/>
         <Label Content="Price:" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="71"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="101,186,0,0" TextWrapping="Wrap" Text="{Binding Price}" 
                  VerticalAlignment="Top" Width="114"/>

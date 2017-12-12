@@ -13,7 +13,7 @@ namespace BuyMe.ViewModels
 {
     class SelectListsViewModel : Window, INotifyPropertyChanged
     {
-        private ShoppingListDbContext db;
+        //private ShoppingListMemory.DbContext Memory.Db;
         private Window currentWindow;
         private ShoppingList selectedList;
         public ObservableCollection<ShoppingList> ShoppingLists { get; set; }
@@ -23,8 +23,8 @@ namespace BuyMe.ViewModels
         {
             var createListWindow = new CreateListWindow {Owner = currentWindow};
             createListWindow.ShowDialog();
-            db.ShoppingLists.Load();
-            ShoppingLists = db.ShoppingLists.Local;
+            Memory.Db.ShoppingLists.Load();
+            ShoppingLists = Memory.Db.ShoppingLists.Local;
         }));
 
         private CustomCommand deleteListCommand;
@@ -39,17 +39,27 @@ namespace BuyMe.ViewModels
             if (deleteConfirmationResult != System.Windows.Forms.DialogResult.Yes) return;
 
             ShoppingLists.Remove(toDeleteShoppingList);
-            db.SaveChanges();
+            Memory.Db.SaveChanges();
         }, obj => ShoppingLists.Count > 0));
 
-        private CustomCommand editListCommand;
-
-        public CustomCommand EditListCommand => editListCommand ?? (editListCommand = new CustomCommand(obj =>
+        private CustomCommand manageProductsCommand;
+        public CustomCommand ManageProductsCommand => manageProductsCommand ?? (manageProductsCommand = new CustomCommand(obj =>
         {
             if (!(obj is ShoppingList toEditList)) return;
 
             var editListWindow = new BasketWindow(SelectedList.Id) {Owner = currentWindow};
             editListWindow.ShowDialog();
+        }));
+
+        private CustomCommand editListInfoCommand;
+        public CustomCommand EditListInfoCommand => editListInfoCommand ?? (editListInfoCommand = new CustomCommand(obj =>
+        {
+            var createListWindow = new CreateListWindow(SelectedList) { Owner = currentWindow };
+            
+
+            createListWindow.ShowDialog();
+            Memory.Db.ShoppingLists.Load();
+            ShoppingLists = Memory.Db.ShoppingLists.Local;
         }));
 
         public ShoppingList SelectedList
@@ -64,12 +74,12 @@ namespace BuyMe.ViewModels
 
         public SelectListsViewModel(Window currentWindow)
         {
-            db = new ShoppingListDbContext();
+            //Memory.Db = new ShoppingListMemory.DbContext();
             this.currentWindow = currentWindow;
 
-            db.ShoppingLists.Load();
+            Memory.Db.ShoppingLists.Load();
             
-            ShoppingLists = db.ShoppingLists.Local;
+            ShoppingLists = Memory.Db.ShoppingLists.Local;
         }
 
 

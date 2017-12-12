@@ -17,10 +17,10 @@ namespace BuyMe.Views
 {
     public partial class CategoryProductsWindow : Window
     {
-        public CategoryProductsWindow()
+        public CategoryProductsWindow(int shoppingListId)
         {
             InitializeComponent();
-            DataContext = new CategoryProductsViewModel(this);
+            DataContext = new CategoryProductsViewModel(this, shoppingListId);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BuyMe.DataAccess
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Busket> Buskets { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
     }
 }

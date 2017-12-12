@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
@@ -17,11 +18,15 @@ namespace BuyMe.ViewModels
     class CreateListViewModel : INotifyPropertyChanged
     {
         private readonly Window currentWindow;
-        private readonly ShoppingListDbContext db;
+        //private readonly ShoppingListMemory.DbContext Memory.Db;
 
         private string name;
         private string imagePath;
         private DateTime reminderTime;
+        private string description;
+
+        public ShoppingList ShoppingListToEdit;
+
         public string ListName
         {
             get => name;
@@ -49,6 +54,16 @@ namespace BuyMe.ViewModels
             {
                 reminderTime = value;
                 OnPropertyChanged("ReminderTime");
+            }
+        }
+
+        public string Description
+        {
+            get => description;
+            set
+            {
+                description = value;
+                OnPropertyChanged("Description");
             }
         }
 
@@ -92,17 +107,30 @@ namespace BuyMe.ViewModels
         private CustomCommand submitCommand;
         public CustomCommand SubmitCommand => submitCommand ?? (submitCommand = new CustomCommand(obj =>
         {
-            GetUniqName();
-            SetDefaultPictureWhenItsNotSetted();
-
-            db.ShoppingLists.Add(new ShoppingList
+            if (ShoppingListToEdit != null)
             {
-                ListName = ListName,
-                ImagePath = ImagePath,
-                ReminderTime = ReminderTime,
-                LastEditTime = DateTime.Now
-            });
-            db.SaveChanges();
+                ShoppingListToEdit.ListName = ListName;
+                ShoppingListToEdit.Description = Description;
+                ShoppingListToEdit.ImagePath = ImagePath;
+                ShoppingListToEdit.ReminderTime = ReminderTime;
+                ShoppingListToEdit.LastEditTime = DateTime.Now;
+              // Memory.Db.ShoppingLists =new Memory.DbSet<ShoppingList>( new ObservableCollection<ShoppingList>( Memory.Db.ShoppingLists.Select(x => x.Id == ShoppingListToEdit.Id ? ShoppingListToEdit : x).ToList()));
+            }
+            else
+            {
+                GetUniqName();
+                SetDefaultPictureWhenItsNotSetted();
+
+                Memory.Db.ShoppingLists.Add(new ShoppingList
+                {
+                    ListName = ListName,
+                    ImagePath = ImagePath,
+                    ReminderTime = ReminderTime,
+                    LastEditTime = DateTime.Now,
+                    Description = Description
+                });
+            }            
+            Memory.Db.SaveChanges();
             currentWindow.DialogResult = true;
         }));
 
@@ -125,12 +153,12 @@ namespace BuyMe.ViewModels
 
         private void GetUniqName()
         {
-            db.ShoppingLists.Load();
+            Memory.Db.ShoppingLists.Load();
             int index = 0;
             while (true)
             {
 
-                if (db.ShoppingLists.Local.All(list => list.ListName != ListName))
+                if (Memory.Db.ShoppingLists.Local.All(list => list.ListName != ListName))
                 {
                     break;
                 }
@@ -153,12 +181,25 @@ namespace BuyMe.ViewModels
         public CreateListViewModel(Window window)
         {
             currentWindow = window;
-            db = new ShoppingListDbContext();
+            //Memory.Db = new ShoppingListMemory.DbContext();
             IsCheckBoxOn = false;
             DatePickerVisibility = "Hidden";
             ListName = "DefaultName";
             ImagePath = "../Images/plus.png";
             ReminderTime = DateTime.Now;
+        }
+
+        public CreateListViewModel(Window window, ShoppingList shoppingList)
+        {
+            currentWindow = window;
+            //Memory.Db = new ShoppingListMemory.DbContext();
+            IsCheckBoxOn = shoppingList.ReminderTime == new DateTime() ? false : true;
+            DatePickerVisibility = IsCheckBoxOn ? "Visible" : "Hidden";
+            ListName = shoppingList.ListName;
+            ImagePath = shoppingList.ImagePath;
+            ReminderTime = shoppingList.ReminderTime;
+            Description = shoppingList.Description;
+            ShoppingListToEdit = Memory.Db.ShoppingLists.First(list => list.Id == shoppingList.Id);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

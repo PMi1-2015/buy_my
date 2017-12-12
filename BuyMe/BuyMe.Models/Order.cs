@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace BuyMe.Models
 {
-    public class Busket
+    public class Order
     {
         public int Id { get; set; }
-        public virtual ICollection<Product> ChosenProducts { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual ShoppingList ShoppingList { get; set;}
+        public double Amount { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace BuyMe.Views
             InitializeComponent();
 
             DataContext = new SelectListsViewModel(this);
+            //Memory.Db = new ShoppingListDbContext();
         }
     }
 }

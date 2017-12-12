@@ -13,14 +13,32 @@ namespace BuyMe.ViewModels
 {
     class BasketViewModel : INotifyPropertyChanged
     {
-        private readonly ShoppingListDbContext db;
+        //private readonly ShoppingListMemory.DbContext Memory.Db;
         private readonly Window currentWindow;
-        private ICollection<Product> selectedProducts;
-       
-        public ShoppingList SelectedShoppingList { get; set; }
-        public double SelectedProductsTotalPrice => selectedProducts?.Sum(product => product.Price) ?? 0;
+        private ObservableCollection<Order> selectedProducts;
+        private ShoppingList selectedShoppingList;
 
-        public ICollection<Product> SelectedProducts
+        public ShoppingList SelectedShoppingList {
+            get => selectedShoppingList;
+            set
+            {
+                selectedShoppingList = value;
+                OnPropertyChanged("SelectedShoppingList"); 
+            } 
+        }
+
+        private double selectedProductsTotalPrice;
+        public double SelectedProductsTotalPrice
+        {
+            get => selectedProductsTotalPrice;
+            set
+            {
+                selectedProductsTotalPrice = value;
+                OnPropertyChanged("SelectedProductsTotalPrice");
+            }
+        }
+
+        public ObservableCollection<Order> SelectedProducts
         {
             get => selectedProducts;
             set
@@ -30,10 +48,19 @@ namespace BuyMe.ViewModels
             }
         }
 
-        private CustomCommand selectAllCommand;
-        public CustomCommand SelectAllCommand => selectAllCommand ?? (selectAllCommand = new CustomCommand(obj =>
+        private CustomCommand selectionChangedCommand;
+        public CustomCommand SelectionChangedCommand => selectionChangedCommand ?? (selectionChangedCommand = new CustomCommand(obj =>
         {
-            selectedProducts = SelectedShoppingList.Products;
+            var selected = (IList)obj;
+            ObservableCollection<Order> selectedCollection = new ObservableCollection<Order>(selected.Cast<Order>());
+            double toRet = 0;
+            foreach (Order product in selectedCollection)
+            {
+                toRet+=(product.Product.Price * product.Amount);
+            }
+            SelectedProductsTotalPrice = toRet;
+            //foreach (var o in selected)
+            //SelectedProductsTotalPrice = selectedCollection?.Sum(o => o.Product.Price) ?? 0;
         }));
 
         private CustomCommand clearSelectedCommand;
@@ -41,13 +68,14 @@ namespace BuyMe.ViewModels
 
         {
             var selected = (IList)obj;
-            ObservableCollection<Product> selectedCollection = new ObservableCollection<Product>(selected.Cast<Product>());
+            ObservableCollection<Order> selectedCollection = new ObservableCollection<Order>(selected.Cast<Order>());
 
-            foreach (Product product in selectedCollection)
+            foreach (Order product in selectedCollection)
             {
-                SelectedShoppingList.Products.Remove(product);
+                SelectedShoppingList.Orders.Remove(product);
             }
-            db.SaveChanges();
+            Memory.Db.SaveChanges();
+            SelectedProductsTotalPrice = SelectedProducts?.Sum(o => o.Product.Price) ?? 0;
         }));
 
         private CustomCommand backCommand;
@@ -59,15 +87,16 @@ namespace BuyMe.ViewModels
         private CustomCommand buyMoreCommand;
         public CustomCommand BuyMoreCommand => buyMoreCommand ?? (buyMoreCommand = new CustomCommand(obj =>
         {
-            var categoryProductWindow = new CategoryProductsWindow();
+            var categoryProductWindow = new CategoryProductsWindow(SelectedShoppingList.Id);
             categoryProductWindow.ShowDialog();
         }));
 
         public BasketViewModel(Window currentWindow, int shoppingListId)
         {
-            db = new ShoppingListDbContext();
-            SelectedShoppingList = db.ShoppingLists.First(list => list.Id == shoppingListId);
+            //Memory.Db = new ShoppingListMemory.DbContext();
+            SelectedShoppingList = Memory.Db.ShoppingLists.First(list => list.Id == shoppingListId);
             this.currentWindow = currentWindow;
+            SelectedProductsTotalPrice = selectedProducts?.Sum(o => o.Product.Price) ?? 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

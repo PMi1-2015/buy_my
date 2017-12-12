@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="Views.MainWindow" Height="350" Width="573.204">
+        Title="Views.MainWindow" Height="350" Width="710.004">
     <Grid>
         <Label Content="Your shopping lists:" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top" Height="28" Width="137"/>
-        <ListView Name="Lists" HorizontalAlignment="Left" Height="185" Margin="27,52,0,0" VerticalAlignment="Top" Width="150" 
+        <ListView Name="Lists" Height="185" Margin="27,52,527,0" VerticalAlignment="Top" 
                   ItemsSource="{Binding ShoppingLists}" SelectedItem="{Binding SelectedList}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Edit" Command="{Binding EditListCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
+                    <MenuItem Header="Edit list info" Command="{Binding EditListInfoCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
+                    <MenuItem Header="Manage products" Command="{Binding ManageProductsCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
                     <MenuItem Header="Delete" Command="{Binding DeleteListCommand}" CommandParameter="{Binding SelectedList}"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
@@ -29,26 +30,26 @@
         <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,166,0,0"/>
         <Label Content="Last edit:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,188,0,0"/>
         <Label Content="Reminder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,213,0,0"/>
-        <ListView x:Name="ProductsOverview" HorizontalAlignment="Left" Height="185" Margin="357,52,0,0" VerticalAlignment="Top" Width="200"
-                  ItemsSource="{Binding SelectedList.Products}">
+        <ListView x:Name="ProductsOverview" HorizontalAlignment="Left" Height="185" Margin="426,52,0,0" VerticalAlignment="Top" Width="200"
+                  ItemsSource="{Binding SelectedList.Orders}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Product.Name}" Width="80"/>
                     <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="50"/>
-                    <GridViewColumn Header="Price/Stock" DisplayMemberBinding="{Binding Path=Price, StringFormat={}{0:C}}" Width="70"/>
+                    <GridViewColumn Header="Price/Stock" DisplayMemberBinding="{Binding Path=Product.Price, StringFormat={}{0:C}}" Width="70"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="{Binding SelectedList.ListName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,166,0,0" Width="108"/>
-        <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="108"/>
+        <Label Content="{Binding SelectedList.ListName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,166,0,0" Width="156" Height="17"/>
+        <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="156" Height="20"/>
 
-        <Label Content="List overview:" HorizontalAlignment="Left" Margin="357,19,0,0" VerticalAlignment="Top" Width="95"/>
+        <Label Content="List overview:" HorizontalAlignment="Left" Margin="426,19,0,0" VerticalAlignment="Top" Width="95"/>
         <TextBlock HorizontalAlignment="Left" Margin="182,239,0,0" TextWrapping="Wrap" 
-                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" VerticalAlignment="Top" Height="44" Width="170"/>
-        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="357,242,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Path=SelectedList.TotalPrice, StringFormat={}{0:C}}" HorizontalAlignment="Left" Margin="455,242,0,0" 
-               VerticalAlignment="Top" Width="100"/>
-
+                   Text="{Binding SelectedList.Description}" VerticalAlignment="Top" Height="44" Width="218"/>
+        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="426,242,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Path=SelectedList.TotalPrice, StringFormat={}{0:C}}" HorizontalAlignment="Left" Margin="526,242,0,0" 
+               VerticalAlignment="Top" Width="100" Height="23"/>
+        <Label Content="{Binding SelectedList.ReminderTime}" HorizontalAlignment="Left" Margin="251,213,0,0" VerticalAlignment="Top" Width="149" Height="21"/>
     </Grid>
 </Window>
 

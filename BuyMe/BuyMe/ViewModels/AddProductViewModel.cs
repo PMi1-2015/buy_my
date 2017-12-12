@@ -14,7 +14,7 @@ namespace BuyMe.ViewModels
 {
     class AddProductViewModel: INotifyPropertyChanged
     {
-        private ShoppingListDbContext db;
+        //private ShoppingListMemory.DbContext Memory.Db;
         private readonly Window currentWindow;
         private readonly Category currentCategory;
 
@@ -71,15 +71,15 @@ namespace BuyMe.ViewModels
         private CustomCommand submitCommand;
         public CustomCommand SubmitCommand => submitCommand ?? (submitCommand = new CustomCommand(obj =>
         {
-            db.Products.Local.Add(new Product
+            Memory.Db.Products.Add(new Product
             {
                 Name = this.Name,
                 Category = currentCategory,
                 Price = this.Price,
-                ImagePath = this.ImagePath,
+                ImagePath = ImagePath == "../Images/plus.png" ? "../Images/defaultProduct.png" : ImagePath,
                 Description = this.Description
             });
-            db.SaveChanges();
+            Memory.Db.SaveChanges();
             currentWindow.DialogResult = true;
         }));
 
@@ -102,21 +102,23 @@ namespace BuyMe.ViewModels
 
         public AddProductViewModel(Window currentWindow, Category currentCategory)
         {
-            db = new ShoppingListDbContext();
+            //Memory.Db = new ShoppingListMemory.DbContext();
             this.currentWindow = currentWindow;
             this.currentCategory = currentCategory;
+            ImagePath = "../Images/plus.png";
         }
 
-        //public AddProductViewModel(Window currentWindow, Category currentCategory, Product productToEdit)
-        //{
-        //    db = new ShoppingListDbContext();
-        //    this.currentWindow = currentWindow;
-        //    this.currentCategory = currentCategory;
-        //    Name = productToEdit.Name;
-        //    ImagePath = productToEdit.ImagePath;
-        //    Price = productToEdit.Price;
-        //    Description = productToEdit.Description;
-        //}
+        public AddProductViewModel(Window currentWindow, Category currentCategory, Product productToEdit)
+        {
+            //Memory.Db = new ShoppingListMemory.DbContext();
+            this.currentWindow = currentWindow;
+            this.currentCategory = currentCategory;
+            Name = productToEdit.Name;
+            ImagePath = productToEdit.ImagePath;
+            Price = productToEdit.Price;
+            Description = productToEdit.Description;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

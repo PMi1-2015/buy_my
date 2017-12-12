@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -16,12 +17,24 @@ namespace BuyMe.ViewModels
     class CategoryProductsViewModel : INotifyPropertyChanged
     {
         private readonly Window currentWindow;
-        private readonly ShoppingListDbContext db;
+        //private readonly ShoppingListMemory.DbContext Memory.Db;
 
         public ObservableCollection<Category> Categories { get; set; }
 
         private Category selectedCategory;
         private Product selectedProduct;
+        private double amount;
+        private int shoppingListId;
+
+        public double Amount
+        {
+            get => amount;
+            set
+            {
+                amount = value;
+                OnPropertyChanged("Amount");
+            }
+        }
 
         public Category SelectedCategory
         {
@@ -81,15 +94,79 @@ namespace BuyMe.ViewModels
                     if (deleteConfirmationResult != DialogResult.Yes) return;
 
                     //Possible cascade deleting
-                    db.Products.Remove(product);
-                    db.SaveChanges();
+                    Memory.Db.Products.Remove(product);
+                    Memory.Db.SaveChanges();
                 }));
-        public CategoryProductsViewModel(Window window)
+
+        private CustomCommand incCommand;
+        public CustomCommand IncCommand => incCommand ?? (incCommand = new CustomCommand(obj =>
         {
-            db = new ShoppingListDbContext();
+            if ((int)Amount >= 0) Amount++;
+        }));
+
+        private CustomCommand decCommand;
+        public CustomCommand DecCommand => decCommand ?? (decCommand = new CustomCommand(obj =>
+        {
+            if ((int)Amount > 0) Amount--;
+        }));
+
+        private CustomCommand submitCommand;
+        public CustomCommand SubmitCommand => submitCommand ?? (submitCommand = new CustomCommand(obj =>
+        {
+            if ((int) Amount <= 0) return;
+                //SelectedProduct = Memory.Db.Products.First(p => p.Name ==);
+                Order toChange;
+            try
+            {
+                 toChange = Memory.Db.Orders?.First(x =>
+                    x.ShoppingList.Id == shoppingListId && x.Product.Name == SelectedProduct.Name);
+            }
+            catch (Exception e)
+            {
+                toChange = null;
+            }
+           
+            if (toChange != null)
+            {
+                toChange.Amount = Amount;
+                toChange.Product = SelectedProduct;
+                toChange.ShoppingList = Memory.Db.ShoppingLists.First(list => list.Id == shoppingListId);
+            }
+            else
+            {
+                Order order = new Order
+                {
+                    Amount = Amount,
+                    Product = SelectedProduct,
+                    ShoppingList = Memory.Db.ShoppingLists.First(list => list.Id == shoppingListId)
+                };
+                Memory.Db.Orders.Add(order);
+            }
+            Memory.Db.SaveChanges();
+            MessageBox.Show("Order added!");
+            //Memory.Db.Orders?.Remove(order);
+            //Memory.Db.Orders.Add(order);
+            //Amount++;
+        }));
+
+        public CategoryProductsViewModel(Window window, int shoppingListId)
+        {
+            //Memory.Db = new ShoppingListMemory.DbContext();
             currentWindow = window;
-            db.Categories.Load();
-            Categories = db.Categories.Local;
+            Memory.Db.Categories.Load();
+            Categories = Memory.Db.Categories.Local;
+            //Amount = 0;
+            //?.Where(order => order.ShoppingList.Id == shoppingListId)
+       //     try
+        //    {
+       //         Amount = Memory.Db.Orders.Local?.First(o => o.Product.Name == SelectedProduct.Name && o.ShoppingList.Id == shoppingListId).Amount ?? 0;
+      //      }
+       //     catch (Exception e)
+       //     {
+                Amount = 0;
+       //     }
+           
+            this.shoppingListId = shoppingListId;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

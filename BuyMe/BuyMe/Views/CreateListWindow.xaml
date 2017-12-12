@@ -7,9 +7,9 @@
         xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="Create List" Height="300" Width="300">
+        Title="Create List" Height="373.725" Width="300">
     <Grid>
-        <Button Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="6,239,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="10,311,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="Create/edit list:" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Top"/>
         <Label Content="Enter name: " HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Add reminder" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
@@ -36,7 +36,9 @@
             </i:Interaction.Triggers>
         </Image>
         <Label Content="Add Image:" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
-        <Button Content="Submit" Command="{Binding SubmitCommand}" HorizontalAlignment="Left" Margin="207,239,0,0" 
+        <Button Content="Submit" Command="{Binding SubmitCommand}" HorizontalAlignment="Left" Margin="209,311,0,0" 
                 VerticalAlignment="Top" Width="75"/>
+        <Label Content="Description(optional):" HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top" Width="274"/>
+        <TextBox HorizontalAlignment="Left" Height="38" Margin="10,268,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Width="274"/>
     </Grid>
 </Window>

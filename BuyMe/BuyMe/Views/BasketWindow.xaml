@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
         Title="BasketWindow" Height="330" Width="300">
@@ -15,23 +16,29 @@
         <Label Content="Basket:" HorizontalAlignment="Left" Margin="124,7,0,0" VerticalAlignment="Top"/>
         <Button Command="{Binding ClearSelectedCommand}" CommandParameter="{Binding ElementName=BasketList, Path=SelectedItems}" 
                 Content="Clear selected" HorizontalAlignment="Left" Margin="196,259,0,0" VerticalAlignment="Top" Width="86" Height="30"/>
-        <Button Command="{Binding SelectAllCommand}"  Content="Select All!" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Command="{Binding BackCommand}" Content="Back to lists" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
         <Button Command="{Binding BuyMoreCommand}" Content="Buy more!" HorizontalAlignment="Left" Margin="90,259,0,0" VerticalAlignment="Top" Width="101" Height="30"/>
-        <ListView Name="BasketList" HorizontalAlignment="Left" Height="164" Margin="10,41,0,0" VerticalAlignment="Top" Width="272" 
-                  ItemsSource="{Binding SelectedShoppingList.Products}">
+        <ListView Name="BasketList" HorizontalAlignment="Left" Height="164" Margin="10,41,0,0" VerticalAlignment="Top" Width="270" 
+                  ItemsSource="{Binding SelectedShoppingList.Orders}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                           CommandParameter="{Binding ElementName=BasketList, Path=SelectedItems}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.View>
+                
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="80"/>
-                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="50"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="80"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Product.Name}" Width="90"/>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="90"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Product.Price}" Width="90"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label Content="Total basket cost:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top"/>
         <Label Content="Total selected cost:" HorizontalAlignment="Left" Margin="172,210,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding SelectedShoppingList.TotalPrice}" HorizontalAlignment="Left" Margin="10,228,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding SelectedProductsTotalPrice}" HorizontalAlignment="Left" Margin="172,228,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding SelectedProductsTotalPrice}" HorizontalAlignment="Left" Margin="172,228,0,0" VerticalAlignment="Top" Height="26" Width="108"/>
 
 
     </Grid>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,8 @@ namespace BuyMe.Models
 {
     public class Product
     {
-        public int Id { get; set; }
+        [Key]
         public string Name { get; set; }
-        public int Amount { get; set; }
         public double Price { get; set; }
         [DefaultValue("Images/defaultProduct.jpg")]
         public string ImagePath { get; set; }

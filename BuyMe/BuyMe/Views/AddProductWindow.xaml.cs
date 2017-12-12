@@ -27,7 +27,7 @@ namespace BuyMe.Views
         public AddProductWindow(Category category, Product productToEdit)
         {
             InitializeComponent();
-            DataContext = new AddProductViewModel(this, category);
+            DataContext = new AddProductViewModel(this, category, productToEdit);
         }
     }
 }

@@ -19,9 +19,10 @@ namespace BuyMe.Models
         public DateTime ReminderTime { get; set; }
         [DefaultValue("Images/default.jpg")]
         public string ImagePath { get; set; }
-        public virtual ObservableCollection<Product> Products { get; set; }
+        public string Description { get; set; }
+        public virtual ObservableCollection<Order> Orders { get; set; }
 
         [NotMapped]
-        public double TotalPrice => Products.Sum(product => product.Price * product.Amount);
+        public double TotalPrice => Orders.Sum(order => order.Product.Price * order.Amount);
     }
 }
