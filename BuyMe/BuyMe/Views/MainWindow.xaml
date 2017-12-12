@@ -33,23 +33,23 @@
         <ListView x:Name="ProductsOverview" HorizontalAlignment="Left" Height="185" Margin="426,52,0,0" VerticalAlignment="Top" Width="200"
                   ItemsSource="{Binding SelectedList.Orders}">
             <ListView.View>
-                <GridView>
+                <GridView >
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Product.Name}" Width="80"/>
                     <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="50"/>
                     <GridViewColumn Header="Price/Stock" DisplayMemberBinding="{Binding Path=Product.Price, StringFormat={}{0:C}}" Width="70"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="{Binding SelectedList.ListName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,166,0,0" Width="156" Height="17"/>
-        <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="156" Height="20"/>
+        <Label Content="{Binding SelectedList.ListName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,166,0,0" Width="156" Height="40"/>
+        <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="156" Height="40"/>
 
         <Label Content="List overview:" HorizontalAlignment="Left" Margin="426,19,0,0" VerticalAlignment="Top" Width="95"/>
         <TextBlock HorizontalAlignment="Left" Margin="182,239,0,0" TextWrapping="Wrap" 
-                   Text="{Binding SelectedList.Description}" VerticalAlignment="Top" Height="44" Width="218"/>
+                   Text="{Binding SelectedList.Description}" VerticalAlignment="Top" Height="80" Width="218"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="426,242,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=SelectedList.TotalPrice, StringFormat={}{0:C}}" HorizontalAlignment="Left" Margin="526,242,0,0" 
                VerticalAlignment="Top" Width="100" Height="23"/>
-        <Label Content="{Binding SelectedList.ReminderTime}" HorizontalAlignment="Left" Margin="251,213,0,0" VerticalAlignment="Top" Width="149" Height="21"/>
+        <Label Content="{Binding SelectedList.ReminderTime}" HorizontalAlignment="Left" Margin="251,213,0,0" VerticalAlignment="Top" Width="149" Height="40"/>
     </Grid>
 </Window>
 
