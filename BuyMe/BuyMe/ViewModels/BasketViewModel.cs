@@ -59,8 +59,6 @@ namespace BuyMe.ViewModels
                 toRet+=(product.Product.Price * product.Amount);
             }
             SelectedProductsTotalPrice = toRet;
-            //foreach (var o in selected)
-            //SelectedProductsTotalPrice = selectedCollection?.Sum(o => o.Product.Price) ?? 0;
         }));
 
         private CustomCommand clearSelectedCommand;
@@ -76,6 +74,7 @@ namespace BuyMe.ViewModels
             }
             Memory.Db.SaveChanges();
             SelectedProductsTotalPrice = SelectedProducts?.Sum(o => o.Product.Price) ?? 0;
+            SelectedShoppingList = SelectedShoppingList;
         }));
 
         private CustomCommand backCommand;
@@ -88,6 +87,7 @@ namespace BuyMe.ViewModels
         public CustomCommand BuyMoreCommand => buyMoreCommand ?? (buyMoreCommand = new CustomCommand(obj =>
         {
             var categoryProductWindow = new CategoryProductsWindow(SelectedShoppingList.Id);
+            SelectedShoppingList = SelectedShoppingList;
             categoryProductWindow.ShowDialog();
         }));
 

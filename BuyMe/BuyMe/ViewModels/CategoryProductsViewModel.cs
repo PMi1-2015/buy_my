@@ -144,10 +144,11 @@ namespace BuyMe.ViewModels
             }
             Memory.Db.SaveChanges();
             MessageBox.Show("Order added!");
-            //Memory.Db.Orders?.Remove(order);
-            //Memory.Db.Orders.Add(order);
-            //Amount++;
-        }));
+            OnPropertyChanged("SelectedShoppingList");
+        //Memory.Db.Orders?.Remove(order);
+        //Memory.Db.Orders.Add(order);
+        //Amount++;
+    }));
 
         public CategoryProductsViewModel(Window window, int shoppingListId)
         {

@@ -44,7 +44,7 @@
         <Label Content="{Binding SelectedList.LastEditTime}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,188,0,0" Width="156" Height="40"/>
 
         <Label Content="List overview:" HorizontalAlignment="Left" Margin="426,19,0,0" VerticalAlignment="Top" Width="95"/>
-        <TextBlock HorizontalAlignment="Left" Margin="182,239,0,0" TextWrapping="Wrap" 
+        <TextBlock HorizontalAlignment="Left" Margin="188,239,0,0" TextWrapping="Wrap" 
                    Text="{Binding SelectedList.Description}" VerticalAlignment="Top" Height="80" Width="218"/>
         <Label Content="Total Price:" HorizontalAlignment="Left" Margin="426,242,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=SelectedList.TotalPrice, StringFormat={}{0:C}}" HorizontalAlignment="Left" Margin="526,242,0,0" 

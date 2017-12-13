@@ -22,6 +22,7 @@ namespace BuyMe.Views
         {
             InitializeComponent();
             DataContext = new BasketViewModel(this, shoppingListId);
+            this.Title = "Busket";
         }
     }
 }

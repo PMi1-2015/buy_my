@@ -22,12 +22,14 @@ namespace BuyMe.Views
         {
             InitializeComponent();
             DataContext = new AddProductViewModel(this, category);
+            this.Title = "Add product";
         }
 
         public AddProductWindow(Category category, Product productToEdit)
         {
             InitializeComponent();
             DataContext = new AddProductViewModel(this, category, productToEdit);
+            this.Title = "Add product";
         }
     }
 }

@@ -81,6 +81,7 @@ namespace BuyMe.ViewModels
             });
             Memory.Db.SaveChanges();
             currentWindow.DialogResult = true;
+            OnPropertyChanged("SelectedShoppingList");
         }));
 
         private CustomCommand addImageCommand;
