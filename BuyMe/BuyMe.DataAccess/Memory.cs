@@ -9,11 +9,5 @@ namespace BuyMe.DataAccess
     public static class Memory
     {
         public static ShoppingListDbContext Db { get; set; } = new ShoppingListDbContext();
-        /*
-        static Memory()
-        {
-            Db = new ShoppingListDbContext();
-        } 
-        */
     }
 }

@@ -13,7 +13,6 @@ namespace BuyMe.ViewModels
 {
     class BasketViewModel : INotifyPropertyChanged
     {
-        //private readonly ShoppingListMemory.DbContext Memory.Db;
         private readonly Window currentWindow;
         private ObservableCollection<Order> selectedProducts;
         private ShoppingList selectedShoppingList;
@@ -93,7 +92,6 @@ namespace BuyMe.ViewModels
 
         public BasketViewModel(Window currentWindow, int shoppingListId)
         {
-            //Memory.Db = new ShoppingListMemory.DbContext();
             SelectedShoppingList = Memory.Db.ShoppingLists.First(list => list.Id == shoppingListId);
             this.currentWindow = currentWindow;
             SelectedProductsTotalPrice = selectedProducts?.Sum(o => o.Product.Price) ?? 0;

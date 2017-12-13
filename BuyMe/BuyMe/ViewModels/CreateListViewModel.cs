@@ -18,7 +18,6 @@ namespace BuyMe.ViewModels
     class CreateListViewModel : INotifyPropertyChanged
     {
         private readonly Window currentWindow;
-        //private readonly ShoppingListMemory.DbContext Memory.Db;
 
         private string name;
         private string imagePath;
@@ -114,7 +113,6 @@ namespace BuyMe.ViewModels
                 ShoppingListToEdit.ImagePath = ImagePath;
                 ShoppingListToEdit.ReminderTime = ReminderTime;
                 ShoppingListToEdit.LastEditTime = DateTime.Now;
-              // Memory.Db.ShoppingLists =new Memory.DbSet<ShoppingList>( new ObservableCollection<ShoppingList>( Memory.Db.ShoppingLists.Select(x => x.Id == ShoppingListToEdit.Id ? ShoppingListToEdit : x).ToList()));
             }
             else
             {
@@ -174,14 +172,13 @@ namespace BuyMe.ViewModels
         {
             if (ImagePath == "../Images/plus.png")
             {
-                ImagePath = "../Images/default.jpg";
+                ImagePath = "../Images/cart.png";
             }
         }
 
         public CreateListViewModel(Window window)
         {
             currentWindow = window;
-            //Memory.Db = new ShoppingListMemory.DbContext();
             IsCheckBoxOn = false;
             DatePickerVisibility = "Hidden";
             ListName = "DefaultName";
@@ -192,7 +189,6 @@ namespace BuyMe.ViewModels
         public CreateListViewModel(Window window, ShoppingList shoppingList)
         {
             currentWindow = window;
-            //Memory.Db = new ShoppingListMemory.DbContext();
             IsCheckBoxOn = shoppingList.ReminderTime == new DateTime() ? false : true;
             DatePickerVisibility = IsCheckBoxOn ? "Visible" : "Hidden";
             ListName = shoppingList.ListName;

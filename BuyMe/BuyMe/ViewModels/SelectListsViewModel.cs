@@ -13,7 +13,6 @@ namespace BuyMe.ViewModels
 {
     class SelectListsViewModel : Window, INotifyPropertyChanged
     {
-        //private ShoppingListMemory.DbContext Memory.Db;
         private Window currentWindow;
         private ShoppingList selectedList;
         public ObservableCollection<ShoppingList> ShoppingLists { get; set; }
@@ -74,7 +73,6 @@ namespace BuyMe.ViewModels
 
         public SelectListsViewModel(Window currentWindow)
         {
-            //Memory.Db = new ShoppingListMemory.DbContext();
             this.currentWindow = currentWindow;
 
             Memory.Db.ShoppingLists.Load();

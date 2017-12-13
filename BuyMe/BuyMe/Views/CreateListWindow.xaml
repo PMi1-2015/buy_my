@@ -13,8 +13,8 @@
         <Label Content="Create/edit list:" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Top"/>
         <Label Content="Enter name: " HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Add reminder" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="CheckBox" Height="20" Width="20" IsChecked="{Binding IsCheckBoxOn}" Margin="99,184,174.6,66.4" 
-                  RenderTransformOrigin="0.4,0.46" Command="{Binding ToggleDatePickerCommand}">
+        <CheckBox Name="CheckBox" Height="20" Width="20" IsChecked="{Binding IsCheckBoxOn}" Margin="115,183,158.6,141" 
+                  RenderTransformOrigin="0.395,0.35" Command="{Binding ToggleDatePickerCommand}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding ToggleDatePickerCommand}"></i:InvokeCommandAction>

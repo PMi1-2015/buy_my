@@ -17,7 +17,6 @@ namespace BuyMe.ViewModels
     class CategoryProductsViewModel : INotifyPropertyChanged
     {
         private readonly Window currentWindow;
-        //private readonly ShoppingListMemory.DbContext Memory.Db;
 
         public ObservableCollection<Category> Categories { get; set; }
 
@@ -114,7 +113,6 @@ namespace BuyMe.ViewModels
         public CustomCommand SubmitCommand => submitCommand ?? (submitCommand = new CustomCommand(obj =>
         {
             if ((int) Amount <= 0) return;
-                //SelectedProduct = Memory.Db.Products.First(p => p.Name ==);
                 Order toChange;
             try
             {
@@ -145,27 +143,14 @@ namespace BuyMe.ViewModels
             Memory.Db.SaveChanges();
             MessageBox.Show("Order added!");
             OnPropertyChanged("SelectedShoppingList");
-        //Memory.Db.Orders?.Remove(order);
-        //Memory.Db.Orders.Add(order);
-        //Amount++;
     }));
 
         public CategoryProductsViewModel(Window window, int shoppingListId)
         {
-            //Memory.Db = new ShoppingListMemory.DbContext();
             currentWindow = window;
             Memory.Db.Categories.Load();
             Categories = Memory.Db.Categories.Local;
-            //Amount = 0;
-            //?.Where(order => order.ShoppingList.Id == shoppingListId)
-       //     try
-        //    {
-       //         Amount = Memory.Db.Orders.Local?.First(o => o.Product.Name == SelectedProduct.Name && o.ShoppingList.Id == shoppingListId).Amount ?? 0;
-      //      }
-       //     catch (Exception e)
-       //     {
                 Amount = 0;
-       //     }
            
             this.shoppingListId = shoppingListId;
         }

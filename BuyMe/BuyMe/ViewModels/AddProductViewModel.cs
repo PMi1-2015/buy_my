@@ -14,7 +14,6 @@ namespace BuyMe.ViewModels
 {
     class AddProductViewModel: INotifyPropertyChanged
     {
-        //private ShoppingListMemory.DbContext Memory.Db;
         private readonly Window currentWindow;
         private readonly Category currentCategory;
 
@@ -103,7 +102,6 @@ namespace BuyMe.ViewModels
 
         public AddProductViewModel(Window currentWindow, Category currentCategory)
         {
-            //Memory.Db = new ShoppingListMemory.DbContext();
             this.currentWindow = currentWindow;
             this.currentCategory = currentCategory;
             ImagePath = "../Images/plus.png";
@@ -111,7 +109,6 @@ namespace BuyMe.ViewModels
 
         public AddProductViewModel(Window currentWindow, Category currentCategory, Product productToEdit)
         {
-            //Memory.Db = new ShoppingListMemory.DbContext();
             this.currentWindow = currentWindow;
             this.currentCategory = currentCategory;
             Name = productToEdit.Name;

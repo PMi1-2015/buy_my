@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuyMe"
         mc:Ignorable="d"
-        Title="Views.MainWindow" Height="350" Width="710.004">
+        Title="Manage Lists" Height="350" Width="710.004">
     <Grid>
         <Label Content="Your shopping lists:" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top" Height="28" Width="137"/>
         <ListView Name="Lists" Height="185" Margin="27,52,527,0" VerticalAlignment="Top" 
